@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import NavBar from "./NavBar/navbar";
 import SearchBar from "./SearchBar/SearchBar";
+import './App.css';
 
 const App = () => {
     const [name, setName] = useState("");
@@ -42,7 +43,6 @@ const App = () => {
                     setData(data);
                     setError(null);
                 }
-
             })
     }
 
@@ -60,8 +60,10 @@ const App = () => {
         <div className="App">
             <NavBar/>
             <SearchBar changeInput={handleInput} pressEnterHandler={pressEnterHandler} handleClick={handleClick}/>
-            {error?(<h1>User Not found</h1> ):(<div className="Card">
-                        <div className="ui card">
+           <div className="Card">
+               { userInput.length ? error ?
+                   (<h1>User Not found</h1> ):
+                   (<div className="ui card">
                             <div className="image">
                                 <img src={avatar} alt="IMAGE"/>
                             </div>
@@ -82,16 +84,10 @@ const App = () => {
                                     Followers: {followers}
                                 </a>
                             </div>
-                        </div>
-                    </div>)}
+                    </div>) :null}
+           </div>
         </div>
 
     );
 }
 export default App;
-
-
-
-/*
-Bring card in center
-when string.length()==0 display another message*/
