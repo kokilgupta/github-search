@@ -12,6 +12,7 @@ const App = () => {
     const [avatar, setAvatar] = useState("");
     const [userInput, setUserInput] = useState("");
     const [error, setError] = useState(null);
+    const[button,setButton]=useState(false);
 
     useEffect (()=>{
         fetch(`https://api.github.com/users/example`)
@@ -31,6 +32,7 @@ const App = () => {
     }
 
     const handleClick=()=>{
+        setButton(true);
         fetch(`https://api.github.com/users/${userInput}`)
             .then(res=>res.json())
             .then(data=>{
@@ -62,7 +64,7 @@ const App = () => {
             <SearchBar changeInput={handleInput} pressEnterHandler={pressEnterHandler} handleClick={handleClick}/>
            <div className="Card">
                { userInput.length ? error ?
-                   (<h1>User Not found</h1> ):
+                   (<h1>User Not found</h1> ): button ?
                    (<div className="ui card">
                             <div className="image">
                                 <img src={avatar} alt="IMAGE"/>
@@ -75,16 +77,17 @@ const App = () => {
                             </div>
                             <div className="extra content">
                                 <p>{repo} Repositories</p>
+                                <br/>
                                 <a>
                                     <i className="user icon"> </i>
                                     Following: {following}
                                 </a>
-                                <a>
+                                <a className="followers">
                                     <i className="user icon"> </i>
                                     Followers: {followers}
                                 </a>
                             </div>
-                    </div>) :null}
+                    </div>):null :null}
            </div>
         </div>
 
